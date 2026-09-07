@@ -1,28 +1,32 @@
 version: '3.8'
 
 services:
-  localstack:
-    image: localstack/localstack:latest
-    container_name: localstack_main
-    ports:
-      - "4566:4566"
-    environment:
-      - AWS_DEFAULT_REGION=af-south-1
-    volumes:
-      - "localstack_data:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+  # localstack:
+  #   image: localstack/localstack:latest
+  #   container_name: localstack_main
+  #   ports:
+  #     - "4566:4566"
+  #   environment:
+  #     - AWS_DEFAULT_REGION=af-south-1
+  #   volumes:
+  #     - "localstack_data:/var/lib/localstack"
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
 
   integration:
     build: ./provider
     restart: always
     ports:
       - "8092:8092"
+    volumes:
+    - "./provider:/app"
 
   app: 
     build: .
     restart: always
     ports:
       - "8000:8000"
+    volumes:
+    - "./:/app"
 
 volumes:
   localstack_data:

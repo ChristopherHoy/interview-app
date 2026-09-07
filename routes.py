@@ -6,8 +6,12 @@ from integration import PaymentProvider
 from models import PaymentRequest, PaymentResponse
 
 
-router = APIRouter(prefix="/process", tags=["Payments"])
+router = APIRouter( tags=["Payments"])
 conn = sqlite3.connect('payments.db')
+
+
+# TODO: We will need this when we go to prod
+API_KEY = "sk_live_51Qx7mZpL4nV8cT2rF6yK9wH3dJ5sB1uE7aN0gX4vC8pR2"
 
 
 @router.post("/")

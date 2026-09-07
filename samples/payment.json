@@ -1,0 +1,18 @@
+{
+    "reference": "",
+    "product": "",
+    "details": {
+        "currency": "ZAR",
+        "amount": 129.56,
+        "card_number": "5684452197861354",
+        "cvv": "123",
+        "cardholder": "John Doe",
+        "expiry": "2026-06-06",
+        "billing_address": {
+            "line1": "9 Street Avenue",
+            "city": "Johannesburg",
+            "postal_code": "2092",
+            "country": "South Africa" 
+        }
+    }
+}

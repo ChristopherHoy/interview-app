@@ -14,7 +14,7 @@ def init_db():
     tables = [
         """
             CREATE TABLE IF NOT EXISTS payment_status_tracking (
-                id INTEGER PRIMARY KEY,
+                id STRING PRIMARY KEY,
                 reference TEXT NOT NULL,
                 status_name TEXT NOT NULL,
                 updated_at TEXT DEFAULT CURRENT_TIMESTAMP
@@ -24,10 +24,10 @@ def init_db():
             CREATE TABLE IF NOT EXISTS payment_audit_log (
                 id INTEGER PRIMARY KEY,
                 reference TEXT NOT NULL,
-                amount REAL NOT NULL,
-                currency TEXT DEFAULT 'ZAR',
+                amount INTEGER NOT NULL,
+                currency INTEGER DEFAULT 'ZAR',
                 payment_method TEXT DEFAULT 'CREDIT_CARD',
-                product_code TEXT,
+                product_code INTEGER,
                 gateway_name TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             );

@@ -2,7 +2,7 @@ import sqlite3
 
 from fastapi import APIRouter, HTTPException
 
-from integration import PaymentProvider
+from integration import MyPaymentProvider
 from models import PaymentRequest, PaymentResponse
 
 
@@ -22,7 +22,7 @@ async def process_payment(payment: PaymentRequest) -> PaymentResponse:
     # Check db
     cursor.execute(
         """
-            select 'Y' as exists from payment_status_tracking 
+            select 'Y' from payment_status_tracking 
             where reference=?
         """,
         (payment.reference,)
@@ -45,7 +45,7 @@ async def process_payment(payment: PaymentRequest) -> PaymentResponse:
     conn.commit()
 
     # Make call
-    provider = PaymentProvider(payment)
+    provider = MyPaymentProvider(payment)
     await provider.call_api()
 
     # Update State
@@ -63,14 +63,14 @@ async def process_payment(payment: PaymentRequest) -> PaymentResponse:
             currency,
             payment_method,
             product_code,
-            gateway_name,
+            gateway_name
         ) values (
             ?, ?, ?, ?, ?, ?
         )
     """, (
         payment.reference, 
         payment.details.amount, 
-        payment.details.currency, 
+        payment.details.currency.value, 
         "CREDIT_CARD",
         payment.product,
         "CUSTOM_GATEWAY"
